@@ -1,12 +1,11 @@
 //Fadi Ayad
-//HW6: Class-Stack-Queue Problem
+//Stack-Queue-Bookshop
 //Bookshop program where buying and selling books takes place
 
 #include <iostream>
 #include <string>
 #include <sstream>
 #include <fstream>
-#include "ArgumentManager.h"
 
 using namespace std;
 
@@ -14,32 +13,7 @@ class LinkedList {
 public:
 	string book;
 	LinkedList *next;
-	bool empty();
-	int size();
-	void insert(string x, int pos);
-	string remove(int pos, bool &success);
-	string retrieve(int pos, bool &success);
 };
-
-/*bool LinkedList::empty() {
-
-}
-
-int LinkedList::size() {
-
-}
-
-void LinkedList::insert(string x, int pos) {
-
-}
-
-string LinkedList::remove(int pos, bool &success) {
-
-}
-
-string LinkedList::retrieve(int pos, bool &success) {
-
-}*/
 
 class Queue : public LinkedList {
 private:
