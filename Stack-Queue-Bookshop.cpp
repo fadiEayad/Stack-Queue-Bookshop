@@ -20,12 +20,12 @@ private:
 	LinkedList *f;	//front
 	LinkedList *r;	//rear
 public:
-	Queue();
-	void enqueue(string book);
-	void dequeue();
-	string front();
-	bool empty();
-	int size();
+	Queue();	//constructor
+	void enqueue(string book);	//add book to queue
+	void dequeue();	//remove book from queue
+	string front();	//return book at front
+	bool empty();	//check if queue is empty (return 1 or 0)
+	int size();	//return size of queue
 };
 
 Queue::Queue() {
@@ -92,12 +92,12 @@ class Stack : public LinkedList {
 private:
 	LinkedList *t;	//top
 public:
-	Stack();
-	void push(string book);
-	void pop();
-	string top();
-	bool empty();
-	int size();
+	Stack();	//constructor
+	void push(string book);	//add book to stack
+	void pop();	//remove book from stack
+	string top();	//return top book
+	bool empty();	//check if stack is empty (return 1 or 0)
+	int size();	//return size of stack
 };
 
 Stack::Stack() {
@@ -161,31 +161,31 @@ int main(int argc, char* argv[]) {
 	infile.open(in);
 	outfile.open(out);
 
-	if (!infile.is_open())
+	if (!infile.is_open())	//print message if couldn't open file
 	{
 		cout << "Couldn't open input file.";
 		return 0;
 	}
 
-	Queue queue;
-	Stack stack;
-	Queue tempQ;
+	Queue queue;	//creating Queue object	
+	Stack stack;	//creating Stack object
+	Queue tempQ;	//creating Queue object
 
 	string command = "";
 
-	while (getline(infile, command)) {
+	while (getline(infile, command)) {	//reading input file
 		bool found = true;
 		if (command.empty()) {
 			continue;
 		}
-		else if (command[0] == 'b') {
+		else if (command[0] == 'b') {	//if buying book
 			stringstream ss(command);
 			string getWord;
 			string book;
 			string dummy;
 			ss >> dummy;
 
-			while (ss >> getWord) {
+			while (ss >> getWord) {	//getting book name
 				if (book.empty()) {
 					book = getWord;
 				}
@@ -194,18 +194,18 @@ int main(int argc, char* argv[]) {
 				}
 			}
 
-			queue.enqueue(book);
-			stack.push(book);
-			ss.str("");
+			queue.enqueue(book);	//add book to queue
+			stack.push(book);	//add book to stack
+			ss.str("");	//clear ss
 		}
-		else if (command[0] == 's') {
+		else if (command[0] == 's') {	//if selling
 			stringstream ss(command);
 			string getWord;
 			string book;
 			string dummy;
 			ss >> dummy;
 
-			while (ss >> getWord) {
+			while (ss >> getWord) {	//getting book name
 				if (book.empty()) {
 					book = getWord;
 				}
@@ -223,8 +223,8 @@ int main(int argc, char* argv[]) {
 				for (int i = 1; i <= stackSize; i++) {	//keep iterating through the stack until we find the book we are going to sell
 					if (i == stackSize && stack.top() != book) {	//if not found, inform user
 						outfile << book << " not found\n";
-						tempQ.enqueue(stack.top());
-						stack.pop();
+						tempQ.enqueue(stack.top());	//store book getting popped from stack into temporary queue
+						stack.pop();	//remove from stack
 						found = false;
 					}
 					else if (stack.top() == book) {
@@ -233,13 +233,13 @@ int main(int argc, char* argv[]) {
 						break;
 					}
 					else {
-						tempQ.enqueue(stack.top());
-						stack.pop();
+						tempQ.enqueue(stack.top());	//store book getting popped from stack into temporary queue
+						stack.pop();	//remove from stack
 					}
 				}
 				while (!tempQ.empty()) {	//return popped books that were not sold back to the stack
-					stack.push(tempQ.front());
-					tempQ.dequeue();
+					stack.push(tempQ.front());	//add book from temporary queue to stack
+					tempQ.dequeue();	//remove book from temporary queue
 				}
 
 				if (found) {
@@ -250,13 +250,13 @@ int main(int argc, char* argv[]) {
 							queue.dequeue();	//once found, we will dequeue (sell) the book
 							break;
 						}
-						else {
-							queue.enqueue(queue.front());
+						else {	//move book from front to back of queue
+							queue.enqueue(queue.front());	
 							queue.dequeue();
 						}
 					}
 				}
-				ss.str("");
+				ss.str("");	//clear ss
 			}
 		}
 	}
